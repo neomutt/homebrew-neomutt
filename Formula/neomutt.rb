@@ -6,7 +6,7 @@ class Neomutt < Formula
   head do
     url "https://github.com/neomutt/neomutt.git", :branch => "neomutt"
 
-    # TODO this resource is a single HTML page in the original mutt.rb
+    # TODO: this resource is a single HTML page in the original mutt.rb
     # The index page for NeoMutt, downloaded here, won't be as useful
     resource "html" do
       url "http://www.neomutt.org/manual/", :using => :nounzip
