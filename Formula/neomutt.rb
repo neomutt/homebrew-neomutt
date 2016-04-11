@@ -24,6 +24,7 @@ class Neomutt < Formula
 
   # Neomutt-specific patches
   option "with-sidebar-patch", "Apply sidebar patch"
+  option "with-notmuch-patch", "Apply notmuch patch"
 
   depends_on "autoconf" => :build
   depends_on "automake" => :build
@@ -34,6 +35,7 @@ class Neomutt < Formula
   depends_on "gpgme" => :optional
   depends_on "libidn" => :optional
   depends_on "s-lang" => :optional
+  depends_on "notmuch" if build.with? "notmuch-patch"
 
   def install
     user_admin = Etc.getgrnam("admin").mem.include?(ENV["USER"])
@@ -60,7 +62,10 @@ class Neomutt < Formula
     args << "--disable-nls" if build.without? "gettext"
     args << "--enable-gpgme" if build.with? "gpgme"
     args << "--with-slang" if build.with? "s-lang"
+
+    # Neomutt-specific patches
     args << "--enable-sidebar" if build.with? "sidebar-patch"
+    args << "--enable-notmuch" if build.with? "notmuch-patch"
 
     if build.with? "debug"
       args << "--enable-debug"
