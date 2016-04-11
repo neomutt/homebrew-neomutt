@@ -1,0 +1,19 @@
+language: objective-c
+env:
+  matrix:
+    - FORMULA_VERSION=
+    - FORMULA_VERSION=--HEAD
+before_install:
+  - brew update
+  - brew --env
+  - brew config
+install:
+  - mkdir -p $(brew --repo)/Library/Taps/neomutt
+  - ln -s $TRAVIS_BUILD_DIR $(brew --repo)/Library/Taps/neomutt/homebrew-neomutt
+script:
+  - brew install neomutt $FORMULA_VERSION --verbose
+  - brew audit neomutt --strict
+  - brew test neomutt
+  - mutt -D
+matrix:
+  fast_finish: true
