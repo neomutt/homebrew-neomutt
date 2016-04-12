@@ -2,17 +2,7 @@ class Neomutt < Formula
   desc "Bringing together all the Mutt Code"
   homepage "http://www.neomutt.org/"
   url "https://github.com/neomutt/neomutt.git", :tag => "neomutt-20160404", :revision => "fba0ecd82522c2eacb1aaa70044cae5a77c93acf"
-
-  head do
-    url "https://github.com/neomutt/neomutt.git", :branch => "neomutt"
-
-    # TODO: this resource is a single HTML page in the original mutt.rb
-    # The index page for NeoMutt, downloaded here, won't be as useful
-    resource "html" do
-      url "http://www.neomutt.org/manual/", :using => :nounzip
-      sha256 "9968bf7ea6f26c424f9d04c95a51ce5bbb1086572dbdfc6850b563e8a428ea7f"
-    end
-  end
+  head "https://github.com/neomutt/neomutt.git", :branch => "neomutt"
 
   conflicts_with "tin",
     :because => "both install mmdf.5 and mbox.5 man pages"
@@ -84,7 +74,6 @@ class Neomutt < Formula
     end
 
     system "make", "install"
-    doc.install resource("html") if build.head?
   end
 
   test do
