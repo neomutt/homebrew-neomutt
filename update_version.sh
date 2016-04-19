@@ -4,6 +4,7 @@
 USAGE="Usage: ./update_version.sh <tag>"
 GITHUB_TAGREF_URL=https://api.github.com/repos/neomutt/neomutt/git/refs/tags/
 GITHUB_TAG_URL=https://api.github.com/repos/neomutt/neomutt/git/tags/
+FORMULA_PATH=Formula/neomutt.rb
 
 # Require the first argument
 if [ -z "$1" ]; then
@@ -46,4 +47,6 @@ JSON=`get_json "$GITHUB_TAG_URL$TAGREFSHA"`
 TAGSHA=`get_key "$JSON" sha`
 
 # Replace the tag and hash in the formula with that of the specified version
-sed -E -i '' '/url/ s/tag => "(.*)", :revision => "(.*)"/tag => "'$TAG'", :revision => "'$TAGSHA'"/' Formula/neomutt.rb
+sed -E -i.bak '/url/ s/tag => "(.*)", :revision => "(.*)"/tag => "'$TAG'", :revision => "'$TAGSHA'"/' $FORMULA_PATH
+# Remove the backup made by sed
+rm $FORMULA_PATH.bak
