@@ -1,7 +1,8 @@
 class Neomutt < Formula
   desc "Bringing together all the Mutt Code"
   homepage "http://www.neomutt.org/"
-  url "https://github.com/neomutt/neomutt.git", :tag => "neomutt-20160502", :revision => "fcf870a5b9f95e63a9e0528988029d10d29cd87f"
+  url "https://github.com/neomutt/neomutt.git", :revision => "7742cc7e48b8fa967c75ecc9f5fc6609a4af1bc5"
+  version "20160530"
   head "https://github.com/neomutt/neomutt.git", :branch => "neomutt"
 
   conflicts_with "tin",
