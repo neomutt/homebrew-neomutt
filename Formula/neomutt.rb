@@ -4,17 +4,8 @@ class Neomutt < Formula
   url "https://github.com/neomutt/neomutt.git", :tag => "neomutt-20160808", :revision => "28c05edf072c872600cec88bb56c26fbbecb859e"
   head "https://github.com/neomutt/neomutt.git", :branch => "neomutt"
 
-  conflicts_with "tin",
-    :because => "both install mmdf.5 and mbox.5 man pages"
-
-  conflicts_with "mutt", :because => "both install mutt binaries"
-
   option "with-debug", "Build with debug option enabled"
   option "with-s-lang", "Build against slang instead of ncurses"
-
-  # Neomutt-specific patches
-  option "with-sidebar-patch", "Apply sidebar patch"
-  option "with-notmuch-patch", "Apply notmuch patch"
 
   depends_on "autoconf" => :build
   depends_on "automake" => :build
@@ -26,6 +17,15 @@ class Neomutt < Formula
   depends_on "libidn" => :optional
   depends_on "s-lang" => :optional
   depends_on "notmuch" if build.with? "notmuch-patch"
+
+  conflicts_with "tin",
+    :because => "both install mmdf.5 and mbox.5 man pages"
+
+  conflicts_with "mutt", :because => "both install mutt binaries"
+
+  # Neomutt-specific patches
+  option "with-sidebar-patch", "Apply sidebar patch"
+  option "with-notmuch-patch", "Apply notmuch patch"
 
   def install
     user_admin = Etc.getgrnam("admin").mem.include?(ENV["USER"])
