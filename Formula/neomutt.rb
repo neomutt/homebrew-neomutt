@@ -7,6 +7,10 @@ class Neomutt < Formula
   option "with-debug", "Build with debug option enabled"
   option "with-s-lang", "Build against slang instead of ncurses"
 
+  # Neomutt-specific patches
+  option "with-sidebar-patch", "Apply sidebar patch"
+  option "with-notmuch-patch", "Apply notmuch patch"
+
   depends_on "autoconf" => :build
   depends_on "automake" => :build
 
@@ -22,10 +26,6 @@ class Neomutt < Formula
     :because => "both install mmdf.5 and mbox.5 man pages"
 
   conflicts_with "mutt", :because => "both install mutt binaries"
-
-  # Neomutt-specific patches
-  option "with-sidebar-patch", "Apply sidebar patch"
-  option "with-notmuch-patch", "Apply notmuch patch"
 
   def install
     user_admin = Etc.getgrnam("admin").mem.include?(ENV["USER"])
