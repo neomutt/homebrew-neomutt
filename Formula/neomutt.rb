@@ -1,7 +1,7 @@
 class Neomutt < Formula
   desc "Bringing together all the Mutt Code"
   homepage "http://www.neomutt.org/"
-  url "https://github.com/neomutt/neomutt.git", :tag => "neomutt-20170113", :revision => "deb6d5d3796263d745d65f7c6b8d41be05a1de65"
+  url "https://github.com/neomutt/neomutt.git", :tag => "neomutt-20170128", :revision => "4560be576c3b19b6c305d31d1328662b09725fbb"
   head "https://github.com/neomutt/neomutt.git", :branch => "neomutt"
 
   option "with-debug", "Build with debug option enabled"
