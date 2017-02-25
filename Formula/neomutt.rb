@@ -1,8 +1,8 @@
 class Neomutt < Formula
   desc "Bringing together all the Mutt Code"
   homepage "http://www.neomutt.org/"
-  url "https://github.com/neomutt/neomutt.git", :tag => "neomutt-20170225", :revision => "b973854010830b8d0e8f4de5c34234d87b7eeb94"
-  head "https://github.com/neomutt/neomutt.git", :branch => "neomutt"
+  url "https://github.com/neomutt/neomutt.git", :tag => "neomutt-20170225", :revision => "b0997a4cb799433c8073229b507fc49a91d61284"
+  head "https://github.com/neomutt/neomutt.git", :branch => "master"
 
   option "with-debug", "Build with debug option enabled"
   option "with-s-lang", "Build against slang instead of ncurses"
