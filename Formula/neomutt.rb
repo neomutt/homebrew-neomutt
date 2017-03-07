@@ -15,12 +15,13 @@ class Neomutt < Formula
   depends_on "automake" => :build
 
   depends_on "openssl"
-  depends_on "tokyo-cabinet"
   depends_on "gettext" => :optional
   depends_on "gpgme" => :optional
   depends_on "libidn" => :optional
   depends_on "s-lang" => :optional
   depends_on "notmuch" if build.with? "notmuch-patch"
+  depends_on "tokyo-cabinet" => :optional
+  depends_on "lmdb" => :optional
 
   conflicts_with "tin",
     :because => "both install mmdf.5 and mbox.5 man pages"
@@ -41,7 +42,6 @@ class Neomutt < Formula
       --enable-smtp
       --enable-pop
       --enable-hcache
-      --with-tokyocabinet
     ]
 
     # This is just a trick to keep 'make install' from trying
@@ -52,6 +52,8 @@ class Neomutt < Formula
     args << "--disable-nls" if build.without? "gettext"
     args << "--enable-gpgme" if build.with? "gpgme"
     args << "--with-slang" if build.with? "s-lang"
+    args << "--with-tokyo-cabinet" if build.with? "tokyo-cabinet"
+    args << "--with-lmdb" if build.with? "lmdb"
 
     # Neomutt-specific patches
     args << "--enable-sidebar" if build.with? "sidebar-patch"
