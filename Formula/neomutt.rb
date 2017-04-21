@@ -13,10 +13,10 @@ class Neomutt < Formula
 
   depends_on "autoconf" => :build
   depends_on "automake" => :build
+  depends_on "gettext" => :build
 
   depends_on "openssl"
   depends_on "tokyo-cabinet"
-  depends_on "gettext" => :optional
   depends_on "gpgme" => :optional
   depends_on "libidn" => :optional
   depends_on "s-lang" => :optional
