@@ -14,10 +14,10 @@ class Neomutt < Formula
   depends_on "autoconf" => :build
   depends_on "automake" => :build
   depends_on "gettext" => :build
+  depends_on "gpgme" => :build
 
   depends_on "openssl"
   depends_on "tokyo-cabinet"
-  depends_on "gpgme" => :optional
   depends_on "libidn" => :optional
   depends_on "s-lang" => :optional
   depends_on "notmuch" if build.with? "notmuch-patch"
@@ -39,6 +39,7 @@ class Neomutt < Formula
       --with-gss
       --enable-imap
       --enable-smtp
+      --enable-gpgme
       --enable-pop
       --enable-hcache
       --with-tokyocabinet
@@ -50,7 +51,6 @@ class Neomutt < Formula
     args << "--with-homespool=.mbox" unless user_admin
 
     args << "--disable-nls" if build.without? "gettext"
-    args << "--enable-gpgme" if build.with? "gpgme"
     args << "--with-slang" if build.with? "s-lang"
 
     # Neomutt-specific patches
