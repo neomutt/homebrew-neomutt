@@ -1,19 +1,20 @@
 class Neomutt < Formula
   desc "Bringing together all the Mutt Code"
   homepage "http://www.neomutt.org/"
-  url "https://github.com/neomutt/neomutt.git", :tag => "neomutt-20170428", :revision => "26b1c69d262048e8a225063aad90f817e0b3dcd6"
+  url "https://github.com/neomutt/neomutt.git", :tag => "neomutt-20170602", :revision => "180546cb0b6a74d8ffb925d18dd14b093e3b1526"
   head "https://github.com/neomutt/neomutt.git", :branch => "master"
 
   option "with-debug", "Build with debug option enabled"
   option "with-s-lang", "Build against slang instead of ncurses"
 
   # Neomutt-specific patches
-  option "with-sidebar-patch", "Apply sidebar patch"
   option "with-notmuch-patch", "Apply notmuch patch"
 
   depends_on "autoconf" => :build
   depends_on "automake" => :build
   depends_on "gettext" => :build
+  depends_on "docbook" => :build
+  depends_on "docbook-xsl" => :build
 
   depends_on "openssl"
   depends_on "tokyo-cabinet"
@@ -31,16 +32,10 @@ class Neomutt < Formula
     user_admin = Etc.getgrnam("admin").mem.include?(ENV["USER"])
 
     args = %W[
-      --disable-dependency-tracking
-      --disable-warnings
       --prefix=#{prefix}
       --with-ssl=#{Formula["openssl"].opt_prefix}
       --with-sasl
       --with-gss
-      --enable-imap
-      --enable-smtp
-      --enable-pop
-      --enable-hcache
       --with-tokyocabinet
     ]
 
@@ -49,12 +44,10 @@ class Neomutt < Formula
     # we're running as an unprivileged user)
     args << "--with-homespool=.mbox" unless user_admin
 
-    args << "--disable-nls" if build.without? "gettext"
     args << "--enable-gpgme" if build.with? "gpgme"
     args << "--with-slang" if build.with? "s-lang"
 
     # Neomutt-specific patches
-    args << "--enable-sidebar" if build.with? "sidebar-patch"
     args << "--enable-notmuch" if build.with? "notmuch-patch"
 
     if build.with? "debug"
