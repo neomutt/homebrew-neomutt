@@ -31,6 +31,9 @@ class Neomutt < Formula
   def install
     user_admin = Etc.getgrnam("admin").mem.include?(ENV["USER"])
 
+    # Find our docbook catalog
+    ENV["XML_CATALOG_FILES"] = "#{etc}/xml/catalog"
+
     args = %W[
       --prefix=#{prefix}
       --with-ssl=#{Formula["openssl"].opt_prefix}
