@@ -29,8 +29,6 @@ class Neomutt < Formula
   conflicts_with "mutt", :because => "both install mutt binaries"
 
   def install
-    user_admin = Etc.getgrnam("admin").mem.include?(ENV["USER"])
-
     # Find our docbook catalog
     ENV["XML_CATALOG_FILES"] = "#{etc}/xml/catalog"
 
@@ -41,11 +39,6 @@ class Neomutt < Formula
       --with-gss
       --with-tokyocabinet
     ]
-
-    # This is just a trick to keep 'make install' from trying
-    # to chgrp the mutt_dotlock file (which we can't do if
-    # we're running as an unprivileged user)
-    args << "--with-homespool=.mbox" unless user_admin
 
     args << "--enable-gpgme" if build.with? "gpgme"
     args << "--with-slang" if build.with? "s-lang"
@@ -61,13 +54,6 @@ class Neomutt < Formula
 
     system "./prepare", *args
     system "make"
-
-    # This permits the `mutt_dotlock` file to be installed under a group
-    # that isn't `mail`.
-    # https://github.com/Homebrew/homebrew/issues/45400
-    if user_admin
-      inreplace "Makefile", /^DOTLOCK_GROUP =.*$/, "DOTLOCK_GROUP = admin"
-    end
 
     system "make", "install"
   end
