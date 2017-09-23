@@ -59,6 +59,6 @@ class Neomutt < Formula
   end
 
   test do
-    system bin/"mutt", "-D"
+    system bin/"neomutt", "-D"
   end
 end
