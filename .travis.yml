@@ -15,6 +15,6 @@ script:
   - brew install neomutt $FORMULA_VERSION --verbose
   - brew audit neomutt --strict
   - brew test neomutt
-  - mutt -D
+  - neomutt -D
 matrix:
   fast_finish: true
