@@ -26,8 +26,6 @@ class Neomutt < Formula
   conflicts_with "tin",
     :because => "both install mmdf.5 and mbox.5 man pages"
 
-  conflicts_with "mutt", :because => "both install mutt binaries"
-
   def install
     # Find our docbook catalog
     ENV["XML_CATALOG_FILES"] = "#{etc}/xml/catalog"
@@ -59,6 +57,6 @@ class Neomutt < Formula
   end
 
   test do
-    system bin/"mutt", "-D"
+    system bin/"neomutt", "-D"
   end
 end
