@@ -5,6 +5,7 @@ class Neomutt < Formula
   head "https://github.com/neomutt/neomutt.git", :branch => "master"
 
   option "with-debug", "Build with debug option enabled"
+  option "with-lua", "Build with lua scripting support enabled"
   option "with-s-lang", "Build against slang instead of ncurses"
 
   # Neomutt-specific patches
@@ -20,6 +21,7 @@ class Neomutt < Formula
   depends_on "tokyo-cabinet"
   depends_on "gpgme" => :optional
   depends_on "libidn" => :optional
+  depends_on "lua" => :optional
   depends_on "s-lang" => :optional
   depends_on "notmuch" if build.with? "notmuch-patch"
 
@@ -48,6 +50,10 @@ class Neomutt < Formula
       args << "--enable-debug"
     else
       args << "--disable-debug"
+    end
+
+    if build.with? "lua"
+      args << "--enable-lua"
     end
 
     system "./prepare", *args
