@@ -4,7 +4,6 @@ class Neomutt < Formula
   url "https://github.com/neomutt/neomutt.git", :tag => "neomutt-20171215", :revision => "ae61285170533b4be544e738cdd2eedefd1856ff"
   head "https://github.com/neomutt/neomutt.git", :branch => "master"
 
-  option "with-debug", "Build with debug option enabled"
   option "with-lua", "Build with lua scripting support enabled"
   option "with-s-lang", "Build against slang instead of ncurses"
 
@@ -45,10 +44,6 @@ class Neomutt < Formula
 
     # Neomutt-specific patches
     args << "--notmuch" if build.with? "notmuch-patch"
-
-    if build.with? "debug"
-      args << "--debug"
-    end
 
     if build.with? "lua"
       args << "--lua"
