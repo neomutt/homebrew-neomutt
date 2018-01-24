@@ -45,10 +45,11 @@ class Neomutt < Formula
     # Neomutt-specific patches
     args << "--notmuch" if build.with? "notmuch-patch"
 
-    # args << "--with-lmdb=#{Formula["lua"].prefix}"
     if build.with? "lmdb"
       args << "--lmdb"
-    else
+    end
+
+    if build.with? "tokyo-cabinet"
       args << "--tokyocabinet"
     end
 
