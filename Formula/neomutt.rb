@@ -1,10 +1,10 @@
 class Neomutt < Formula
   desc "Bringing together all the Mutt Code"
-  homepage "http://www.neomutt.org/"
-  url "https://github.com/neomutt/neomutt.git", :tag => "neomutt-20171208", :revision => "f43ca8617f641c253f87ca976a482f0a74fbe161"
+  homepage "https://www.neomutt.org/"
+  url "https://github.com/neomutt/neomutt.git", :tag => "neomutt-20171215", :revision => "ae61285170533b4be544e738cdd2eedefd1856ff"
   head "https://github.com/neomutt/neomutt.git", :branch => "master"
 
-  option "with-debug", "Build with debug option enabled"
+  option "with-lua", "Build with lua scripting support enabled"
   option "with-s-lang", "Build against slang instead of ncurses"
 
   # Neomutt-specific patches
@@ -20,6 +20,7 @@ class Neomutt < Formula
   depends_on "tokyo-cabinet"
   depends_on "gpgme" => :optional
   depends_on "libidn" => :optional
+  depends_on "lua" => :optional
   depends_on "s-lang" => :optional
   depends_on "notmuch" if build.with? "notmuch-patch"
 
@@ -33,24 +34,29 @@ class Neomutt < Formula
     args = %W[
       --prefix=#{prefix}
       --with-ssl=#{Formula["openssl"].opt_prefix}
-      --with-sasl
-      --with-gss
-      --with-tokyocabinet
+      --sasl
+      --gss
+      --tokyocabinet
+      --disable-idn
     ]
 
     args << "--enable-gpgme" if build.with? "gpgme"
-    args << "--with-slang" if build.with? "s-lang"
 
     # Neomutt-specific patches
-    args << "--enable-notmuch" if build.with? "notmuch-patch"
+    args << "--notmuch" if build.with? "notmuch-patch"
 
-    if build.with? "debug"
-      args << "--enable-debug"
-    else
-      args << "--disable-debug"
+    if build.with? "lua"
+      args << "--lua"
+      args << "--with-lua=#{Formula["lua"].prefix}"
     end
 
-    system "./prepare", *args
+    if build.with? "s-lang"
+      args << "--with-ui=slang"
+    else
+      args << "--with-ui=ncurses"
+    end
+
+    system "./configure", *args
     system "make"
 
     system "make", "install"
