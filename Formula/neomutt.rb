@@ -14,6 +14,8 @@ class Neomutt < Formula
   depends_on "gettext" => :build
   depends_on "docbook" => :build
   depends_on "docbook-xsl" => :build
+  depends_on "libxslt" => :build unless OS.mac?
+  depends_on "krb5" => :build unless OS.mac?
 
   depends_on "openssl"
   depends_on "tokyo-cabinet" => :recommended unless build.with?("lmdb")
@@ -31,7 +33,6 @@ class Neomutt < Formula
     args = %W[
       --prefix=#{prefix}
       --with-ssl=#{Formula["openssl"].opt_prefix}
-      --sasl
       --gss
       --disable-idn
     ]
@@ -40,6 +41,8 @@ class Neomutt < Formula
 
     # Neomutt-specific patches
     args << "--notmuch" if build.with? "notmuch-patch"
+    
+    args << "--sasl" if OS.linux?
 
     if build.with? "lmdb"
       args << "--lmdb"
