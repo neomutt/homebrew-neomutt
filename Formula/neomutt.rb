@@ -42,7 +42,7 @@ class Neomutt < Formula
     # Neomutt-specific patches
     args << "--notmuch" if build.with? "notmuch-patch"
     
-    args << "--sasl" if OS.linux?
+    args << "--sasl" unless OS.linux?
 
     if build.with? "lmdb"
       args << "--lmdb"
