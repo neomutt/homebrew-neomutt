@@ -7,6 +7,8 @@ class Neomutt < Formula
   option "with-lmdb", "Build with lmdb support"
   option "with-lua", "Build with lua scripting support enabled"
   option "with-s-lang", "Build against slang instead of ncurses"
+  option "with-fcntl", "Build with fcntl support (default)"
+  option "with-flock", "Build with flock support"
 
   # Neomutt-specific patches
   option "with-notmuch-patch", "Apply notmuch patch"
@@ -24,6 +26,8 @@ class Neomutt < Formula
   depends_on "libidn" => :optional
   depends_on "lua" => :optional
   depends_on "s-lang" => :optional
+  depends_on "fcntl" => :optional
+  depends_on "flock" => :optional
   depends_on "notmuch" if build.with? "notmuch-patch"
 
   def install
@@ -41,7 +45,11 @@ class Neomutt < Formula
 
     # Neomutt-specific patches
     args << "--notmuch" if build.with? "notmuch-patch"
-    
+
+    args << "--with-lock=fcntl" if build.with? "fcntl"
+
+    args << "--with-lock=flock" if build.with? "flock"
+
     args << "--sasl" unless OS.linux?
 
     if build.with? "lmdb"
