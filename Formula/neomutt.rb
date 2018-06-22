@@ -1,7 +1,7 @@
 class Neomutt < Formula
   desc "Teaching an Old Dog New Tricks"
   homepage "https://www.neomutt.org/"
-  url "https://github.com/neomutt/neomutt.git", :tag => "neomutt-20180512", :revision => "984ab4aa2456314de2b981c338d00d58295f2c3d"
+  url "https://github.com/neomutt/neomutt.git", :tag => "neomutt-20180622", :revision => "77c2177d8e9baf64366cceb34d3d1a337328342f"
   head "https://github.com/neomutt/neomutt.git", :branch => "master"
 
   option "with-lmdb", "Build with lmdb support"
