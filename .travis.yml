@@ -13,7 +13,6 @@ install:
   - ln -s $TRAVIS_BUILD_DIR $(brew --repo)/Library/Taps/neomutt/homebrew-neomutt
 script:
   - brew install neomutt $FORMULA_VERSION --verbose
-  - brew link --overwrite python@2
   - brew audit neomutt --strict
   - brew test neomutt
   - neomutt -D
