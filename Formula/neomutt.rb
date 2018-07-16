@@ -1,7 +1,7 @@
 class Neomutt < Formula
   desc "Teaching an Old Dog New Tricks"
   homepage "https://www.neomutt.org/"
-  url "https://github.com/neomutt/neomutt.git", :tag => "neomutt-20180622", :revision => "77c2177d8e9baf64366cceb34d3d1a337328342f"
+  url "https://github.com/neomutt/neomutt.git", :tag => "neomutt-20180716", :revision => "6a147a62cf39c2a12cf2e96a8a62f378164548fa"
   head "https://github.com/neomutt/neomutt.git", :branch => "master"
 
   option "with-lmdb", "Build with lmdb support"
@@ -27,8 +27,8 @@ class Neomutt < Formula
   depends_on "libidn" => :optional
   depends_on "lua" => :optional
   depends_on "s-lang" => :optional
-  depends_on "fcntl" => :optional
-  depends_on "flock" => :optional
+  # depends_on "fcntl" => :optional
+  # depends_on "flock" => :optional
   depends_on "idn2" => :optional
   depends_on "notmuch" if build.with? "notmuch-patch"
 
