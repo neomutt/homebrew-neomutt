@@ -29,7 +29,7 @@ class Neomutt < Formula
   depends_on "s-lang" => :optional
   # depends_on "fcntl" => :optional
   # depends_on "flock" => :optional
-  depends_on "idn2" => :optional
+  depends_on "libidn2" => :optional
   depends_on "notmuch" if build.with? "notmuch-patch"
 
   def install
@@ -52,7 +52,7 @@ class Neomutt < Formula
 
     args << "--with-lock=flock" if build.with? "flock"
 
-    args << "--idn2" if build.with? "idn2"
+    args << "--idn2" if build.with? "libidn2"
 
     args << "--sasl" unless OS.linux?
 
