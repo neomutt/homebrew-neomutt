@@ -43,7 +43,10 @@ class Neomutt < Formula
       --disable-idn
     ]
 
-    args << "--enable-gpgme" if build.with? "gpgme"
+    if build.with? "gpgme"
+      args << "--enable-gpgme"
+      args << "--with-gpgme=#{Formula["gpgme"].opt_prefix}"
+    end
 
     # Neomutt-specific patches
     args << "--notmuch" if build.with? "notmuch-patch"
